@@ -1,3 +1,5 @@
+import { changeActivity } from "../rat/actions";
+
 const feed = food => ({
   type: "eat",
   hunger: food
@@ -8,10 +10,10 @@ const water = water => ({
   thirst: water
 });
 
-const tick = () => ({ type: "tick" });
+const tick = () => (dispatch, getState) => {
+  dispatch({ type: "tick" });
+  const { rat } = getState();
+  dispatch(changeActivity(rat));
+};
 
-export {
-  feed,
-  water,
-  tick
-}
+export { feed, water, tick };

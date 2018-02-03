@@ -22,24 +22,22 @@ const tickReducer = (state, action) => {
         ...state,
         hunger: state.hunger + 1,
         thirst: state.thirst + 1,
-        fatigue: state.fatigue + 1,
-        frustration: state.frustration + 1,
+        fatigue:
+          state.activity === "sleep" ? state.fatigue - 1 : state.fatigue + 1,
+        frustration: state.frustration,
         weight: weightReducer(state),
         circadian: (state.circadian + 1) % 240,
         age: state.circadian === 1 ? state.age + 1 : state.age,
-        pain: state.pain,
-        activity: activityReducer(state)
+        pain: state.pain
+      };
+    case "new activity":
+      return {
+        ...state,
+        activity: action.activity
       };
     default:
       return state;
   }
-};
-
-const activityReducer = state => {
-  const { hunger, thirst } = state;
-
-  if (hunger > 1000 || thirst > 1000) return "dead";
-  else return "sleeping";
 };
 
 const weightReducer = state => {
