@@ -33,7 +33,7 @@ const tickReducer = (state, action) => {
           newState.activity === "sleep"
             ? vitals.fatigue - 1
             : vitals.fatigue + 1;
-        feelings.weight = weightReducer(newState);
+        stats.weight = weightReducer(newState);
         stats.circadian = (stats.circadian + 1) % 240;
         (stats.age = stats.circadian === 1 ? stats.age + 1 : stats.age),
           (stats.pain = stats.pain);
@@ -48,7 +48,7 @@ const tickReducer = (state, action) => {
 };
 
 const weightReducer = state => {
-  const { vitals: { hunger, weight } } = state;
+  const { vitals: { hunger }, stats: { weight } } = state;
   if (hunger < 0) return weight + 0.1;
 
   return weight;
