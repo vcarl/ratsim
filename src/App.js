@@ -23,8 +23,8 @@ class App extends React.Component {
     this.interval = setInterval(() => dispatch(tick()), ms);
   }
   stopInterval = () => {
-    clearInterval(this.interval)
-  }
+    clearInterval(this.interval);
+  };
   render() {
     return (
       <div>

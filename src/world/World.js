@@ -2,14 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { withState, compose } from "recompose";
 
-import { Rat } from '../rat/Rat'
+import { Rat } from "../rat/Rat";
 
-import { DebugFeed, DebugWater } from './debug/debugActions'
+import { DebugFeed, DebugWater } from "./debug/debugActions";
 
 class World extends React.Component {
   componentDidUpdate() {
-    if (this.props.redux.rat.activity === 'dead') {
-      this.props.stopInterval()
+    if (this.props.redux.rat.activity === "dead") {
+      this.props.stopInterval();
     }
   }
   render() {
@@ -39,8 +39,6 @@ class World extends React.Component {
   }
 }
 
-const WrappedWorld = compose(
-  connect(state => ({redux: state}))
-)(World);
+const WrappedWorld = compose(connect(state => ({ redux: state })))(World);
 
 export { WrappedWorld as World };
