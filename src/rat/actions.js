@@ -6,7 +6,12 @@ const changeActivity = rat => (dispatch, getState) => {
 };
 
 const findNewActivity = rat => {
+  if (isDead(rat)) {
+    return "dead";
+  }
+
   const needs = checkNeeds(rat);
+
   if (hasNeeds(needs)) {
     let need = getRandomNeed(needs);
     return mapNeedToActivity(need);
@@ -14,16 +19,28 @@ const findNewActivity = rat => {
   return "wander";
 };
 
+const isDead = rat => {
+  const { vitals: { hunger, thirst } } = rat;
+  if (hunger >= 1000 || thirst >= 1000) {
+    return true;
+  }
+  if (hunger <= -1000 || thirst <= -1000) {
+    return true;
+  }
+  return false;
+};
+
 const checkNeeds = rat => {
+  const { vitals } = rat;
   let needs = [];
 
-  if (needsSleep(rat.fatigue)) {
+  if (needsSleep(vitals.fatigue)) {
     needs.push("sleep");
   }
-  if (needsWater(rat.thirst)) {
+  if (needsWater(vitals.thirst)) {
     needs.push("water");
   }
-  if (needsFood(rat.hunger)) {
+  if (needsFood(vitals.hunger)) {
     needs.push("food");
   }
   return needs;

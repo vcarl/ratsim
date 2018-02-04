@@ -7,7 +7,7 @@ import { feed, water } from "./actions";
 class World extends React.Component {
   render() {
     const {
-      rat,
+      redux,
       dispatch,
       setFood,
       food,
@@ -24,7 +24,7 @@ class World extends React.Component {
           value={interval}
           onChange={({ target }) => setInterval(Number(target.value))}
         />
-        <pre>{JSON.stringify(rat, null, 2)}</pre>
+        <pre>{JSON.stringify(redux, null, 2)}</pre>
         <input
           type="number"
           value={food}
@@ -43,7 +43,7 @@ class World extends React.Component {
 }
 
 const WrappedWorld = compose(
-  connect(state => state),
+  connect(state => ({redux: state})),
   withState("food", "setFood", 3),
   withState("waterAmount", "setWater", 3)
 )(World);
