@@ -30,7 +30,7 @@ const tickReducer = (state, action) => {
         vitals.hunger += 1;
         vitals.thirst += 1;
         vitals.fatigue =
-          newState.activity === "sleep"
+          newState.activity === "sleeping"
             ? vitals.fatigue - 1
             : vitals.fatigue + 1;
         stats.weight = weightReducer(newState);
