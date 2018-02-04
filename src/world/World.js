@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { withState, compose } from "recompose";
 
+import { Rat } from '../rat/Rat'
+
 import { DebugFeed, DebugWater } from './debug/debugActions'
 
 class World extends React.Component {
@@ -26,7 +28,7 @@ class World extends React.Component {
         />
         <DebugFeed dispatch={dispatch} />
         <DebugWater dispatch={dispatch} />
-        <pre>{JSON.stringify(redux, null, 2)}</pre>
+        <Rat />
       </div>
     );
   }
