@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withState, compose } from "recompose";
-import * as scale from "d3-scale";
 
 const startedWandering = (activity, nextActivity) =>
   nextActivity === "wander" && activity !== nextActivity;

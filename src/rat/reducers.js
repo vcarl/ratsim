@@ -26,7 +26,7 @@ const tickReducer = (state, action) => {
         return state;
       }
       return immer(state, newState => {
-        const { vitals, feelings, stats } = newState;
+        const { vitals, stats } = newState;
         vitals.hunger += 1;
         vitals.thirst += 1;
         vitals.fatigue =
@@ -35,8 +35,8 @@ const tickReducer = (state, action) => {
             : vitals.fatigue + 1;
         stats.weight = weightReducer(newState);
         stats.circadian = (stats.circadian + 1) % 240;
-        (stats.age = stats.circadian === 1 ? stats.age + 1 : stats.age),
-          (stats.pain = stats.pain);
+        stats.age = stats.circadian === 1 ? stats.age + 1 : stats.age;
+        stats.pain = stats.pain;
       });
     case "new activity":
       return immer(state, newState => {

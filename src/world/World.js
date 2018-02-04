@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withState, compose } from "recompose";
+import { compose } from "recompose";
 
 import { Rat } from "../rat/Rat";
 
@@ -14,12 +14,7 @@ class World extends React.Component {
   }
   render() {
     const {
-      redux,
       dispatch,
-      setFood,
-      food,
-      setWater,
-      waterAmount,
       interval,
       setInterval
     } = this.props;
