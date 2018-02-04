@@ -14,10 +14,8 @@ const stillWandering = (wanderStartTime, currentCircadian) => {
   return currentCircadian - wanderStartTime > 21;
 };
 
-const doneTravelling = (currentCircadian, startCircadian, travelTime) => (
-  console.log(currentCircadian - startCircadian, travelTime),
-  currentCircadian - startCircadian === travelTime
-);
+const doneTravelling = (currentCircadian, startCircadian, travelTime) =>
+  currentCircadian - startCircadian === travelTime;
 
 const move = (set, startTime) =>
   set({
@@ -37,8 +35,8 @@ class Rat extends React.Component {
     } = this.props;
     const { rat: { activity: nextActivity } } = nextProps;
 
-    if (nextActivity !== 'wander') return;
-    if (startedWandering(activity, nextActivity) ) {
+    if (nextActivity !== "wander") return;
+    if (startedWandering(activity, nextActivity)) {
       move(setTarget, stats.circadian);
     } else if (stillWandering(target.startTime, stats.circadian)) {
       setPosition({
