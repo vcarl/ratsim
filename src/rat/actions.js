@@ -1,9 +1,13 @@
-const changeActivity = rat => (dispatch, getState) => {
-  const rand = Math.ceil(Math.random() * 100);
-  if (rand < 5) {
-    dispatch({ type: "new activity", activity: findNewActivity(rat) });
+const type = "new activity";
+
+const changeActivity = rat => dispatch => {
+  if (shouldChangeActivities(5)) {
+    dispatch({ type, activity: findNewActivity(rat) });
   }
 };
+
+const shouldChangeActivities = percentage =>
+  Math.ceil(Math.random() * 100) <= percentage;
 
 const findNewActivity = rat => {
   if (isDead(rat)) {
@@ -83,4 +87,4 @@ const mapNeedToActivity = need => {
   }
 };
 
-export { changeActivity };
+export { changeActivity, type as CHANGE_ACTIVITY };
