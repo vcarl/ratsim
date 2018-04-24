@@ -48,9 +48,15 @@ const checkNeeds = rat => {
   return needs;
 };
 
-const needsWater = thirst => thirst > 600;
-const needsFood = hunger => hunger > 600;
-const needsSleep = fatigue => fatigue > 300;
+export const needThresholds = {
+  thirst: 600,
+  hunger: 600,
+  fatigue: 300,
+};
+
+const needsWater = thirst => thirst > needThresholds.thirst;
+const needsFood = hunger => hunger > needThresholds.hunger;
+const needsSleep = fatigue => fatigue > needThresholds.fatigue;
 
 const hasNeeds = needs => needs.length > 0;
 
