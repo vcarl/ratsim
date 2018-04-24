@@ -61,7 +61,12 @@ const needsSleep = fatigue => fatigue > needThresholds.fatigue;
 const hasNeeds = needs => needs.length > 0;
 
 const getRandomNeed = needs => {
-  const index = Math.floor(Math.random() * (needs.length + needs.length / 2));
+  if (needs.length === 1) {
+    return needs[0];
+  }
+  const index = Math.floor(
+    Math.random() * (needs.length + needs.length / 2)
+  );
   return index < needs.length ? needs[index] : "none";
 };
 
