@@ -5,11 +5,7 @@ const initialRatState = {
   vitals: {
     hunger: 0,
     thirst: 0,
-    fatigue: 0
-  },
-  feelings: {
-    frustration: 0,
-    pain: 0
+    fatigue: 0,
   },
   stats: {
     weight: 0,
@@ -19,7 +15,7 @@ const initialRatState = {
   activity: "sleeping",
 };
 
-const tickReducer = (state, action) => {
+const ratReducer = (state = initialRatState, action) => {
   switch (action.type) {
     case "tick":
       if (state.activity === "dead") {
@@ -36,7 +32,14 @@ const tickReducer = (state, action) => {
         stats.weight = weightReducer(newState);
         stats.circadian = (stats.circadian + 1) % 240;
         stats.age = stats.circadian === 1 ? stats.age + 1 : stats.age;
-        stats.pain = stats.pain;
+      });
+    case "eat":
+      return immer(state, ({ vitals }) => {
+        vitals.hunger -= action.hunger;
+      });
+    case "water":
+      return immer(state, ({ vitals }) => {
+        vitals.thirst -= action.thirst;
       });
     case "new activity":
       return immer(state, newState => {
@@ -57,17 +60,6 @@ const weightReducer = state => {
   return weight;
 };
 
-const behaviorsReducer = (state = initialRatState, action) => {
-  switch (action.type) {
-    case "eat":
-      return immer(state, ({ vitals }) => (vitals.hunger -= action.hunger));
-    case "water":
-      return immer(state, ({ vitals }) => (vitals.thirst -= action.thirst));
-    default:
-      return state;
-  }
-};
-
-const rat = reduceReducers(tickReducer, behaviorsReducer);
+const rat = ratReducer;
 
 export { rat };
