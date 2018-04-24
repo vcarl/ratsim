@@ -1,11 +1,7 @@
 import immer from "immer";
 import { rat } from "./reducers";
 
-import {
-  changeActivity,
-  CHANGE_ACTIVITY,
-  needThresholds,
-} from "./actions";
+import { changeActivity, types, needThresholds } from "./actions";
 
 global.Math.random = jest
   .fn()
@@ -25,7 +21,7 @@ describe("changeActivity", () => {
       .mockReturnValue(0.99);
 
     changeActivity(initialState)(action => {
-      expect(action.type).toBe(CHANGE_ACTIVITY);
+      expect(action.type).toBe(types.CHANGE_ACTIVITY);
       expect(action.activity).toBe("sleeping");
     });
   });
@@ -35,7 +31,7 @@ describe("changeActivity", () => {
     });
 
     changeActivity(initialState)(action => {
-      expect(action.type).toBe(CHANGE_ACTIVITY);
+      expect(action.type).toBe(types.CHANGE_ACTIVITY);
       expect(action.activity).toBe("seek food");
     });
   });
@@ -45,7 +41,7 @@ describe("changeActivity", () => {
     });
 
     changeActivity(initialState)(action => {
-      expect(action.type).toBe(CHANGE_ACTIVITY);
+      expect(action.type).toBe(types.CHANGE_ACTIVITY);
       expect(action.activity).toBe("seek water");
     });
   });

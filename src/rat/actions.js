@@ -1,8 +1,13 @@
-const type = "new activity";
+const types = {
+  CHANGE_ACTIVITY: "new activity",
+};
 
 const changeActivity = rat => dispatch => {
   if (shouldChangeActivities(5)) {
-    dispatch({ type, activity: findNewActivity(rat) });
+    dispatch({
+      type: types.CHANGE_ACTIVITY,
+      activity: findNewActivity(rat),
+    });
   }
 };
 
@@ -87,4 +92,4 @@ const mapNeedToActivity = need => {
   }
 };
 
-export { changeActivity, type as CHANGE_ACTIVITY };
+export { changeActivity, types };

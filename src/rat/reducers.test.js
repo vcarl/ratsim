@@ -1,7 +1,7 @@
 import immer from "immer";
 import { rat } from "./reducers";
 
-import { CHANGE_ACTIVITY } from "./actions";
+import { types } from "./actions";
 
 const initialState = immer(rat(undefined, {}), ({ vitals }) => {
   vitals.hunger = 100;
@@ -19,7 +19,7 @@ describe("rat", () => {
     ];
     acceptableActivities.forEach(activity => {
       const newState = rat(initialState, {
-        type: CHANGE_ACTIVITY,
+        type: types.CHANGE_ACTIVITY,
         activity,
       });
 
