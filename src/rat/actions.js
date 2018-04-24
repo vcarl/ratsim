@@ -20,7 +20,9 @@ const findNewActivity = rat => {
 };
 
 const isDead = rat => {
-  const { vitals: { hunger, thirst } } = rat;
+  const {
+    vitals: { hunger, thirst },
+  } = rat;
   if (hunger >= 1000 || thirst >= 1000) {
     return true;
   }

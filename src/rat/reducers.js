@@ -14,9 +14,9 @@ const initialRatState = {
   stats: {
     weight: 0,
     circadian: 0,
-    age: 0
+    age: 0,
   },
-  activity: "sleeping"
+  activity: "sleeping",
 };
 
 const tickReducer = (state, action) => {
@@ -48,7 +48,10 @@ const tickReducer = (state, action) => {
 };
 
 const weightReducer = state => {
-  const { vitals: { hunger }, stats: { weight } } = state;
+  const {
+    vitals: { hunger },
+    stats: { weight },
+  } = state;
   if (hunger < 0) return weight + 0.1;
 
   return weight;

@@ -13,11 +13,7 @@ class World extends React.Component {
     }
   }
   render() {
-    const {
-      dispatch,
-      interval,
-      setInterval
-    } = this.props;
+    const { dispatch, interval, setInterval } = this.props;
 
     return (
       <div>
@@ -34,6 +30,8 @@ class World extends React.Component {
   }
 }
 
-const WrappedWorld = compose(connect(state => ({ redux: state })))(World);
+const WrappedWorld = compose(connect(state => ({ redux: state })))(
+  World
+);
 
 export { WrappedWorld as World };

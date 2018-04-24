@@ -2,12 +2,12 @@ import { changeActivity } from "../rat/actions";
 
 const feed = food => ({
   type: "eat",
-  hunger: food
+  hunger: food,
 });
 
 const water = water => ({
   type: "water",
-  thirst: water
+  thirst: water,
 });
 
 const tick = () => (dispatch, getState) => {

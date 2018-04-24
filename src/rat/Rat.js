@@ -13,14 +13,17 @@ const stillWandering = (wanderStartTime, currentCircadian) => {
   return currentCircadian - wanderStartTime > 21;
 };
 
-const doneTravelling = (currentCircadian, startCircadian, travelTime) =>
-  currentCircadian - startCircadian === travelTime;
+const doneTravelling = (
+  currentCircadian,
+  startCircadian,
+  travelTime
+) => currentCircadian - startCircadian === travelTime;
 
 const move = (set, startTime) =>
   set({
     x: pickBoundedRandom(10),
     y: pickBoundedRandom(10),
-    startTime
+    startTime,
   });
 const pickBoundedRandom = bound => Math.floor(Math.random() * bound);
 
@@ -30,9 +33,11 @@ class Rat extends React.Component {
       setPosition,
       setTarget,
       target,
-      rat: { activity, stats }
+      rat: { activity, stats },
     } = this.props;
-    const { rat: { activity: nextActivity } } = nextProps;
+    const {
+      rat: { activity: nextActivity },
+    } = nextProps;
 
     if (nextActivity !== "wander") return;
     if (startedWandering(activity, nextActivity)) {
@@ -40,13 +45,15 @@ class Rat extends React.Component {
     } else if (stillWandering(target.startTime, stats.circadian)) {
       setPosition({
         x: target.x,
-        y: target.y
+        y: target.y,
       });
       move(setTarget, stats.circadian);
-    } else if (doneTravelling(stats.circadian, target.startTime, 15)) {
+    } else if (
+      doneTravelling(stats.circadian, target.startTime, 15)
+    ) {
       setPosition({
         x: target.x,
-        y: target.y
+        y: target.y,
       });
     }
   }
@@ -65,7 +72,7 @@ const WrappedRat = compose(
   withState("target", "setTarget", {
     x: null,
     y: null,
-    startTime: null
+    startTime: null,
   })
 )(Rat);
 

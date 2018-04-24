@@ -20,11 +20,17 @@ const DebugWaterComponent = ({ waterAmount, setWater, dispatch }) => (
       value={waterAmount}
       onChange={({ target }) => setWater(Number(target.value))}
     />
-    <button onClick={() => dispatch(water(waterAmount))}>water</button>
+    <button onClick={() => dispatch(water(waterAmount))}>
+      water
+    </button>
   </div>
 );
 
-const DebugFeed = withState("food", "setFood", 10)(DebugFeedComponent);
-const DebugWater = withState("waterAmount", "setWater", 10)(DebugWaterComponent);
+const DebugFeed = withState("food", "setFood", 10)(
+  DebugFeedComponent
+);
+const DebugWater = withState("waterAmount", "setWater", 10)(
+  DebugWaterComponent
+);
 
 export { DebugFeed, DebugWater };
