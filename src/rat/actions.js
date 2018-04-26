@@ -4,9 +4,11 @@ const types = {
 
 const changeActivity = rat => dispatch => {
   if (shouldChangeActivities(5)) {
+    const { activity, ...payload } = findNewActivity(rat);
     dispatch({
       type: types.CHANGE_ACTIVITY,
-      activity: findNewActivity(rat),
+      activity,
+      ...payload,
     });
   }
 };
@@ -16,16 +18,22 @@ const shouldChangeActivities = percentage =>
 
 const findNewActivity = rat => {
   if (isDead(rat)) {
-    return "dead";
+    return { activity: "dead" };
   }
 
   const needs = checkNeeds(rat);
 
   if (hasNeeds(needs)) {
     let need = getRandomNeed(needs);
-    return mapNeedToActivity(need);
+    return { activity: mapNeedToActivity(need) };
   }
-  return "wander";
+  return {
+    activity: "wander",
+    target: {
+      x: pickBoundedRandom(10),
+      y: pickBoundedRandom(10),
+    },
+  };
 };
 
 const isDead = rat => {
@@ -73,9 +81,7 @@ const getRandomNeed = needs => {
   if (needs.length === 1) {
     return needs[0];
   }
-  const index = Math.floor(
-    Math.random() * (needs.length + needs.length / 2)
-  );
+  const index = pickBoundedRandom(needs.length);
   return index < needs.length ? needs[index] : "none";
 };
 
@@ -88,8 +94,10 @@ const mapNeedToActivity = need => {
     case "food":
       return "seek food";
     default:
-      return "wander";
+      return "idle";
   }
 };
+
+const pickBoundedRandom = bound => Math.floor(Math.random() * bound);
 
 export { changeActivity, types };

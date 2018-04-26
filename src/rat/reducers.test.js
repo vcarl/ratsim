@@ -11,11 +11,11 @@ const initialState = immer(rat(undefined, {}), ({ vitals }) => {
 describe("rat", () => {
   it("changes activities", () => {
     const acceptableActivities = [
-      "dead",
-      "sleeping",
-      "seek water",
-      "seek food",
-      "wander",
+      { activity: "dead" },
+      { activity: "sleeping" },
+      { activity: "seek water" },
+      { activity: "seek food" },
+      { activity: "wander", target: { x: 0, y: 0 } },
     ];
     acceptableActivities.forEach(activity => {
       const newState = rat(initialState, {
