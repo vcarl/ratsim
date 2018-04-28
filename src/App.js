@@ -2,36 +2,35 @@ import React from "react";
 import { connect } from "react-redux";
 import { withState, compose } from "recompose";
 
-import { tick } from "./world/actions";
+import { tick as createTick } from "./world/actions";
 import { World } from "./world/World";
 
 class App extends React.Component {
+  lastTimeout = undefined;
+
   componentDidMount() {
-    const { interval } = this.props;
-    this.tickEvery(interval);
+    this.tick(this.props.interval);
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.interval !== nextProps.interval) {
-      const { interval } = nextProps;
-      clearInterval(this.interval);
-      this.tickEvery(interval);
-    }
-  }
-  tickEvery(ms) {
-    const { dispatch } = this.props;
-    clearInterval(this.interval);
-    this.interval = setInterval(() => dispatch(tick()), ms);
-  }
-  stopInterval = () => {
-    clearInterval(this.interval);
+
+  tick = interval => {
+    this.lastTimeout = setTimeout(() => {
+      this.props.dispatch(createTick());
+      this.tick(this.props.interval);
+    }, interval);
   };
+
+  handleIntervalChange = newInterval => {
+    clearTimeout(this.lastTimeout);
+    this.tick(newInterval);
+    this.props.setInterval(newInterval);
+  };
+
   render() {
     return (
       <div>
         <World
           interval={this.props.interval}
-          setInterval={this.props.setInterval}
-          stopInterval={this.stopInterval}
+          setInterval={this.handleIntervalChange}
         />
       </div>
     );

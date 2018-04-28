@@ -7,11 +7,6 @@ import { Rat } from "../rat/Rat";
 import { DebugFeed, DebugWater } from "./debug/debugActions";
 
 class World extends React.Component {
-  componentDidUpdate() {
-    if (this.props.redux.rat.activity === "dead") {
-      this.props.stopInterval();
-    }
-  }
   render() {
     const { dispatch, interval, setInterval } = this.props;
 
