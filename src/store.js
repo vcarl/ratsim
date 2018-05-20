@@ -6,7 +6,7 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import { rat } from "./rat/reducers";
-// import world from './world/reducers'
+import { world } from "./world/reducers";
 
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -15,6 +15,7 @@ const createStore = initialState =>
   reduxCreateStore(
     combineReducers({
       rat,
+      world,
     }),
     initialState,
     composeEnhancers(applyMiddleware(thunk))

@@ -4,6 +4,8 @@ import { withState, compose } from "recompose";
 
 import { tick as createTick } from "./world/actions";
 import { World } from "./world/World";
+import { Rat } from "./rat/Rat";
+import { DebugFeed, DebugWater } from "./world/debug/debugActions";
 
 class App extends React.Component {
   lastTimeout = undefined;
@@ -26,19 +28,25 @@ class App extends React.Component {
   };
 
   render() {
+    const { dispatch, setInterval, interval } = this.props;
     return (
       <div>
-        <World
-          interval={this.props.interval}
-          setInterval={this.handleIntervalChange}
+        <input
+          type="number"
+          value={interval}
+          onChange={({ target }) => setInterval(Number(target.value))}
         />
+        <DebugFeed dispatch={dispatch} />
+        <DebugWater dispatch={dispatch} />
+        <World />
+        <Rat />
       </div>
     );
   }
 }
 
 const WrappedApp = compose(
-  connect(state => state),
+  connect(),
   withState("interval", "setInterval", 100)
 )(App);
 
